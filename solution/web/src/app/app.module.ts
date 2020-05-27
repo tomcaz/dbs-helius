@@ -12,6 +12,11 @@ import { EffectsModule } from '@ngrx/effects';
 import { optionReducer } from './reducers/option.reducer';
 import { FormsModule } from '@angular/forms';
 
+import { HttpClientModule } from '@angular/common/http';
+import { ApiEffects } from './effects/api.effect';
+import { ApiService } from './services/api.service';
+import { ErrorComponent } from './components/error/error.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,6 +24,7 @@ import { FormsModule } from '@angular/forms';
     CanvasComponent,
     ToolbarComponent,
     OptionsComponent,
+    ErrorComponent,
   ],
   imports: [
     BrowserModule,
@@ -34,9 +40,12 @@ import { FormsModule } from '@angular/forms';
         },
       }
     ),
-    EffectsModule.forRoot([]),
+    HttpClientModule,
+    EffectsModule.forRoot([ApiEffects]),
   ],
-  providers: [],
+  providers: [
+    ApiService
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

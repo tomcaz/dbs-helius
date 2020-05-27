@@ -10,6 +10,8 @@ import {
   useGlue,
   useScissor,
   reset,
+  loadApiSuccess,
+  loadApiFail,
 } from '../actions/toolbar.action';
 import { Action, createReducer, on, State } from '@ngrx/store';
 
@@ -17,24 +19,34 @@ export const ToolbarReducerFeatureKey = 'toolbarReducer';
 
 export const initialState: ToolbarState = {
   state: STATE_SCISSOR,
+  loadApiFailed:false
 };
 
 const _toolbarReducer = createReducer(
   initialState,
   on(reset, (state, payload) => ({
-    ...initialState,
+    ...state,
+    state: STATE_IDLE
   })),
   on(useScissor, (state, payload) => ({
-    ...initialState,
+    ...state,
     state: STATE_SCISSOR,
   })),
   on(useEraser, (state, payload) => ({
-    ...initialState,
+    ...state,
     state: STATE_ERASER,
   })),
   on(useGlue, (state, payload) => ({
-    ...initialState,
+    ...state,
     state: STATE_GLUE,
+  })),
+  on(loadApiSuccess,(state,payload)=>({
+    ...state,
+    config:payload
+  })),
+  on(loadApiFail,(state,payload)=>({
+    ...state,
+    loadApiFailed:true
   }))
 );
 
