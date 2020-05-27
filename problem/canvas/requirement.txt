@@ -1,0 +1,8 @@
+Given the canvas, user can draw 3 basic type of shapes: circle, rectangle, trigangle. User can use the toolbar in the right handside panel:
+- Scissor: Drag the scrissor icon into the shape, this will split the targeted shape into 2 pieces.
+- Glue: Drag the glue icon into the shape, this will glue the target shaped which is splited by the scissor tool.
+- Eraser: Remove the shape from the canvas.
+
+The dimention of the canvas and the list of toolbar will be defined in a json returned by the backend api.
+You are free to design the format of the json file.
+Note: Not allow to use any library for the canvas. Only can use standard Canvas API: https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API
