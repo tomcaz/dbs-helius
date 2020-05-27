@@ -8,6 +8,9 @@ import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { OptionsComponent } from './components/options/options.component';
 import { StoreModule } from '@ngrx/store';
 import { toolbarReducer } from './reducers/toolbar.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { optionReducer } from './reducers/option.reducer';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -19,8 +22,9 @@ import { toolbarReducer } from './reducers/toolbar.reducer';
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     StoreModule.forRoot(
-      { toolbar: toolbarReducer },
+      { toolbar: toolbarReducer, option: optionReducer },
       {
         runtimeChecks: {
           // strictStateImmutability and strictActionImmutability are enabled by default
@@ -30,6 +34,7 @@ import { toolbarReducer } from './reducers/toolbar.reducer';
         },
       }
     ),
+    EffectsModule.forRoot([]),
   ],
   providers: [],
   bootstrap: [AppComponent],

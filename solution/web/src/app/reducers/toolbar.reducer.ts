@@ -16,7 +16,7 @@ import { Action, createReducer, on, State } from '@ngrx/store';
 export const ToolbarReducerFeatureKey = 'toolbarReducer';
 
 export const initialState: ToolbarState = {
-  state: STATE_IDLE,
+  state: STATE_SCISSOR,
 };
 
 const _toolbarReducer = createReducer(
