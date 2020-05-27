@@ -34,10 +34,18 @@ export class ToolbarComponent implements OnInit {
   constructor(private store: Store<{ toolbar: ToolbarState }>) {
     this.toolbar$ = store.pipe(select('toolbar'));
   }
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.toolbar$.subscribe(e=>{
+      if(e && e.config)
+      console.log(e.config.payload.toolbar.scissor)
+    })
+  }
 
   onClick(state: Number) {
+    // this.toolbar$.subscribe(e=> console.log(e))
+
     this.toolbar$.pipe(take(1)).subscribe((e) => {
+      
       if (e.state == state) state = STATE_IDLE;
       switch (state) {
         case STATE_SCISSOR:

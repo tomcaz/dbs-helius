@@ -19,9 +19,9 @@
 
   height: 50px;
   width: 50px;
-  display: block;
+  /* display: block; */
 
-  margin-bottom: 20px;
+  margin-left: 20px;
 }
 .main {
   padding-left: 16px;

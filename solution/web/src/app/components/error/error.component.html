@@ -1,0 +1,4 @@
+<div class="main" *ngIf="(toolbar$ | async).loadApiFailed">
+    <h1>Oops! I cannot connect to server</h1>
+</div>
+<div class="backdrop" *ngIf="(toolbar$ | async).loadApiFailed"></div>

@@ -1,5 +1,7 @@
 export interface ToolbarState {
   state: number;
+  config?: any,
+  loadApiFailed: false
 }
 
 export const STATE_IDLE = 0;

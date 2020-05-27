@@ -13,6 +13,7 @@ import { createEffect, Actions, ofType } from '@ngrx/effects';
 import { takeUntil, filter, tap, take } from 'rxjs/operators';
 import { drawRect } from 'src/app/actions/option.action';
 import { ShapeState } from 'src/app/model/shape-state.model';
+import { loadApiSuccess } from 'src/app/actions/toolbar.action';
 
 @Component({
   selector: 'app-canvas',
@@ -27,7 +28,7 @@ export class CanvasComponent implements OnInit {
 
   toolbar$: Observable<ToolbarState>;
   option$: Observable<ShapeState>;
-
+  configLoaded: boolean = false;
   private ctx: CanvasRenderingContext2D;
 
   constructor(
@@ -43,12 +44,17 @@ export class CanvasComponent implements OnInit {
 
     // Add behind elements.
     this.ctx.globalCompositeOperation = 'destination-over';
-    this.canvas.nativeElement.width = 600;
-    this.canvas.nativeElement.height = 600;
+
+    this.toolbar$.subscribe((e) => {
+      console.log(e)
+      if(e.config && !this.configLoaded){
+      this.canvas.nativeElement.width = e.config.payload['canvas-size'].width;
+      this.canvas.nativeElement.height = e.config.payload['canvas-size'].height;
+      this.configLoaded = true;
+    }});
     let flag = false;
 
     this.option$.subscribe((e) => {
-      console.log(1);
       // Now draw!
 
       this.ctx.clearRect(0, 0, this.props.width, this.props.height);
@@ -191,7 +197,7 @@ export class CanvasComponent implements OnInit {
       curtop = 0;
     if (obj.nativeElement.offsetParent) {
       do {
-        curleft += obj.nativeElement.offsetLeft + 16;
+        curleft += obj.nativeElement.offsetLeft + 16; // 16 bcoz padding
         curtop += obj.nativeElement.offsetTop + 16;
       } while ((obj = obj.offsetParent));
       return { x: curleft, y: curtop };

@@ -1,0 +1,17 @@
+.backdrop{
+    display: block;
+    background-color: rgba(255,255,255,0.9);
+    z-index: 1000;
+    position: fixed;
+    left:0px;
+    right:0px;
+    top:0px;
+    bottom:0px;
+}.main{
+    left:50%;
+    top:50%;
+    position: fixed;
+    display: inline-block;
+    z-index: 1001;
+    transform: translate(-50%,-50%);
+}
