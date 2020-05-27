@@ -11,6 +11,7 @@ import {
   eraseTria,
   halfTria,
   glueTria,
+  glueCirc,
 } from './../actions/option.action';
 import { Action, createReducer, on, State } from '@ngrx/store';
 import { ShapeState } from '../model/shape-state.model';
@@ -61,7 +62,7 @@ const _optionReducer = createReducer(
     circ: true,
     circSplitted: true,
   })),
-  on(glueRect, (state, payload) => ({
+  on(glueCirc, (state, payload) => ({
     ...state,
     circ: true,
     circSplitted: false,

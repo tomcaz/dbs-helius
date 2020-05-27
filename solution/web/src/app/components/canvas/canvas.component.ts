@@ -1,5 +1,5 @@
-import { drawCirc } from './../../actions/option.action';
-import { ToolbarState } from './../../model/toolbar.model';
+import { drawCirc, glueRect, eraseRect, halfRect, glueCirc, eraseCirc, halfCirc, glueTria, eraseTria, halfTria } from './../../actions/option.action';
+import { ToolbarState, STATE_GLUE, STATE_ERASER, STATE_SCISSOR } from './../../model/toolbar.model';
 import {
   Component,
   OnInit,
@@ -27,8 +27,6 @@ export class CanvasComponent implements OnInit {
 
   toolbar$: Observable<ToolbarState>;
   option$: Observable<ShapeState>;
-
-  state: number;
 
   private ctx: CanvasRenderingContext2D;
 
@@ -70,6 +68,13 @@ export class CanvasComponent implements OnInit {
           // splitted
           let offsetX = 100;
           let offsetY = 100;
+          this.ctx.beginPath();
+          this.ctx.moveTo(50 + offsetX, 140 + offsetY);
+          this.ctx.lineTo(150 + offsetX, 60 + offsetY);
+          this.ctx.lineTo(150 + offsetX, 140 + offsetY);
+          this.ctx.closePath();
+          this.ctx.fill();
+
           this.ctx.beginPath();
           this.ctx.moveTo(160 + offsetX, 140 + offsetY);
           this.ctx.lineTo(160 + offsetX, 60 + offsetY);
@@ -124,6 +129,8 @@ export class CanvasComponent implements OnInit {
     ).data;
     // If transparency on the pixel , array = [0,0,0,0]
     console.log(pixelData);
+    this.toolbar$.pipe(take(1)).subscribe((e)=>{
+      console.log(e.state)
     if (
       pixelData[0] == 0 &&
       pixelData[1] == 0 &&
@@ -131,7 +138,14 @@ export class CanvasComponent implements OnInit {
       pixelData[3] == 255
     ) {
       // rectangle
-      this.toolbar$.pipe(take(1)).subscribe();
+      // this.toolbar$.pipe(take(1)).subscribe();
+      if(e.state == STATE_GLUE){
+        this.store.dispatch(glueRect());
+      }else if(e.state == STATE_ERASER){
+        this.store.dispatch(eraseRect());
+      }else if(e.state == STATE_SCISSOR){
+        this.store.dispatch(halfRect());
+      }
     } else if (
       pixelData[0] == 255 &&
       pixelData[1] == 0 &&
@@ -139,6 +153,13 @@ export class CanvasComponent implements OnInit {
       pixelData[3] == 255
     ) {
       // triangle
+      if(e.state == STATE_GLUE){
+        this.store.dispatch(glueTria());
+      }else if(e.state == STATE_ERASER){
+        this.store.dispatch(eraseTria());
+      }else if(e.state == STATE_SCISSOR){
+        this.store.dispatch(halfTria());
+      }
     } else if (
       pixelData[0] == 0 &&
       pixelData[1] == 128 &&
@@ -146,7 +167,14 @@ export class CanvasComponent implements OnInit {
       pixelData[3] == 255
     ) {
       // circle
-    }
+      if(e.state == STATE_GLUE){
+        this.store.dispatch(glueCirc());
+      }else if(e.state == STATE_ERASER){
+        this.store.dispatch(eraseCirc());
+      }else if(e.state == STATE_SCISSOR){
+        this.store.dispatch(halfCirc());
+      }
+    }});
   }
   getEventLocation(event) {
     // Relies on the getElementPosition function.

@@ -2,4 +2,4 @@
 {{ (toolbar$ | async).state}}
 <canvas #canvas id="canvas" (click)="clicked($event)"></canvas>
 <!-- <canvas #canvas id="canvas" [width]="props.width" [height]="props.height"></canvas> -->
-<input [(ngModel)]="state" [value]="(toolbar$ | async).state" />
+<!-- <input [(ngModel)]="state" [value]="(toolbar$ | async).state" type="hidden" /> -->
