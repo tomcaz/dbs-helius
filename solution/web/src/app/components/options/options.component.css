@@ -1,0 +1,13 @@
+.btn {
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+
+  border: 1px solid lightblue;
+  background-color: white;
+  height: 50px;
+  margin-right: 20px;
+}
+.main {
+  text-align: center;
+}

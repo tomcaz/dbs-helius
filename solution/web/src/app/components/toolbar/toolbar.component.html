@@ -1,0 +1,8 @@
+<div class="main">
+  <button id="scissor" class="btn" (click)="onClick(STATE_SCISSOR)"
+    [ngClass]="(toolbar$|async).state == STATE_SCISSOR? 'active':''"></button>
+  <button id="eraser" class="btn" (click)="onClick(STATE_ERASER)"
+    [ngClass]="(toolbar$|async).state == STATE_ERASER? 'active':''"></button>
+  <button id="glue" class="btn" (click)="onClick(STATE_GLUE)"
+    [ngClass]="(toolbar$|async).state == STATE_GLUE? 'active':''"></button>
+</div>

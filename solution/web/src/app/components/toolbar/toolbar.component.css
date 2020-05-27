@@ -1,0 +1,31 @@
+#scissor {
+  background: url(../../../assets/img/scissor.svg) no-repeat top left;
+}
+#eraser {
+  background: url(../../../assets/img/eraser.svg) no-repeat top left;
+}
+#glue {
+  background: url(../../../assets/img/glue.svg) no-repeat top left;
+}
+.btn {
+  outline: none;
+
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+
+  border: 1px solid lightblue;
+  background-color: white;
+
+  height: 50px;
+  width: 50px;
+  display: block;
+
+  margin-bottom: 20px;
+}
+.main {
+  padding-left: 16px;
+}
+.active {
+  border: 1px solid brown;
+}
