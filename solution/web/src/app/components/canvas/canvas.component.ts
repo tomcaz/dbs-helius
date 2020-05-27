@@ -30,7 +30,7 @@ export class CanvasComponent implements OnInit {
   option$: Observable<ShapeState>;
   configLoaded: boolean = false;
   private ctx: CanvasRenderingContext2D;
-
+  config : any= {};
   constructor(
     private store: Store<{ toolbar: ToolbarState; option: ShapeState }>,
     private actions$: Actions
@@ -50,6 +50,7 @@ export class CanvasComponent implements OnInit {
       if(e.config && !this.configLoaded){
       this.canvas.nativeElement.width = e.config.payload['canvas-size'].width;
       this.canvas.nativeElement.height = e.config.payload['canvas-size'].height;
+      this.config = e.config.payload;
       this.configLoaded = true;
     }});
     let flag = false;
@@ -62,10 +63,14 @@ export class CanvasComponent implements OnInit {
         this.ctx.fillStyle = 'blue';
         if (e.rectSplitted) {
           // splitted
-          this.ctx.fillRect(10, 10, 50, 100);
-          this.ctx.fillRect(70, 10, 50, 100);
+          // this.ctx.fillRect(10, 10, 50, 100);
+          // this.ctx.fillRect(70, 10, 50, 100);
+          this.ctx.fillRect(this.config.rectangle.left[0], this.config.rectangle.left[1], this.config.rectangle.left[2], this.config.rectangle.left[3]);
+          this.ctx.fillRect(this.config.rectangle.right[0], this.config.rectangle.right[1], this.config.rectangle.right[2], this.config.rectangle.right[3]);
+          
         } else {
-          this.ctx.fillRect(10, 10, 100, 100);
+          this.ctx.fillRect(this.config.rectangle.default[0], this.config.rectangle.default[1], this.config.rectangle.default[2], this.config.rectangle.default[3]);
+          // this.ctx.fillRect(10, 10, 100, 100);
         }
       }
       if (e.tria) {
@@ -75,25 +80,25 @@ export class CanvasComponent implements OnInit {
           let offsetX = 100;
           let offsetY = 100;
           this.ctx.beginPath();
-          this.ctx.moveTo(50 + offsetX, 140 + offsetY);
-          this.ctx.lineTo(150 + offsetX, 60 + offsetY);
-          this.ctx.lineTo(150 + offsetX, 140 + offsetY);
+          this.ctx.moveTo(this.config.triangle.left[0] + offsetX, this.config.triangle.left[1] + offsetY);
+          this.ctx.lineTo(this.config.triangle.left[2] + offsetX, this.config.triangle.left[3] + offsetY);
+          this.ctx.lineTo(this.config.triangle.left[4] + offsetX, this.config.triangle.left[5] + offsetY);
           this.ctx.closePath();
           this.ctx.fill();
 
           this.ctx.beginPath();
-          this.ctx.moveTo(160 + offsetX, 140 + offsetY);
-          this.ctx.lineTo(160 + offsetX, 60 + offsetY);
-          this.ctx.lineTo(260 + offsetX, 140 + offsetY);
+          this.ctx.moveTo(this.config.triangle.right[0] + offsetX, this.config.triangle.right[1] + offsetY);
+          this.ctx.lineTo(this.config.triangle.right[2] + offsetX, this.config.triangle.right[3] + offsetY);
+          this.ctx.lineTo(this.config.triangle.right[4] + offsetX, this.config.triangle.right[5] + offsetY);
           this.ctx.closePath();
           this.ctx.fill();
         } else {
           let offsetX = 100;
           let offsetY = 100;
           this.ctx.beginPath();
-          this.ctx.moveTo(50 + offsetX, 140 + offsetY);
-          this.ctx.lineTo(150 + offsetX, 60 + offsetY);
-          this.ctx.lineTo(250 + offsetX, 140 + offsetY);
+          this.ctx.moveTo(this.config.triangle.default[0] + offsetX, this.config.triangle.default[1] + offsetY);
+          this.ctx.lineTo(this.config.triangle.default[2] + offsetX, this.config.triangle.default[3] + offsetY);
+          this.ctx.lineTo(this.config.triangle.default[4] + offsetX, this.config.triangle.default[5] + offsetY);
           this.ctx.closePath();
           this.ctx.fill();
         }
@@ -105,17 +110,17 @@ export class CanvasComponent implements OnInit {
 
           this.ctx.beginPath();
           // this.ctx.arc(450, 350, 50, 0, Math.PI);
-          this.ctx.arc(450, 350, 50, 0, Math.PI, true);
+          this.ctx.arc(this.config.circle.top[0], this.config.circle.top[1], this.config.circle.top[2], this.config.circle.top[3], Math.PI, true);
           this.ctx.closePath();
           this.ctx.fill();
 
           this.ctx.beginPath();
-          this.ctx.arc(450, 370, 50, 0, Math.PI, false);
+          this.ctx.arc(this.config.circle.bottom[0], this.config.circle.bottom[1], this.config.circle.bottom[2], this.config.circle.bottom[3], Math.PI, false);
           this.ctx.closePath();
           this.ctx.fill();
         } else {
           this.ctx.beginPath();
-          this.ctx.arc(450, 350, 50, 0, 2 * Math.PI);
+          this.ctx.arc(this.config.circle.default[0], this.config.circle.default[1], this.config.circle.default[2], this.config.circle.default[3], 2 * Math.PI);
           this.ctx.closePath();
           this.ctx.fill();
         }

@@ -10,3 +10,4 @@ npm i && npm start
 - Toolbar buttons are toggle
 - Click same button again to untoggle
 - Draw Buttons are one time click
+- click SCISSOR/ERASER/GLUE and click on the shape
